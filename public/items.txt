@@ -1,26 +1,385 @@
 {
-  "dna": {
-    "name": "DNA",
-    "image": "dna.png",
-    "interactions": { "rnapol2": ["nucleus", "prerna"] },
-    "tags": ["Initial Material", "DNA"],
-    "goal": false,
-    "isDefault": true
-  },
-  "rnapol2": {
-    "name": "RNA Polymerase 2",
-    "image": "rnapol2.png",
-    "interactions": { "dna": ["nucleus", "prerna"] },
-    "tags": ["Protein","Created"],
-    "goal": false,
-    "isDefault": true
-  },
-  "prerna": {
-    "name": "Pre-RNA",
-    "image": "prerna.png",
-    "interactions": {},
-    "tags": ["RNA"],
-    "goal": false,
-    "isDefault": false
-  }
+    "dna": {
+        "name": "DNA",
+        "image": "dna.png",
+        "interactions": {
+            "rnapol2": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "DNA"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "rnapol2": {
+        "name": "RNA Polymerase 2",
+        "image": "rnapol2.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "prerna": {
+        "name": "Pre-RNA",
+        "image": "prerna.png",
+        "interactions": {},
+        "tags": [
+            "RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "fold": {
+        "name": "Folding Action",
+        "image": "fold.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Action"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "transposon": {
+        "name": "Transposon DNA",
+        "image": "transposon.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "DNA"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "rnapol1": {
+        "name": "RNA Polymerase 1",
+        "image": "rnapol1.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "rnapol3": {
+        "name": "RNA Polymerase 3",
+        "image": "rnapol3.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "cappingenzymes": {
+        "name": "Capping Enzymes",
+        "image": "cappingenzymes.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Proteins"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "polyapol": {
+        "name": "Poly-A Polymerase",
+        "image": "polyapol.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "snornp": {
+        "name": "snoRNP",
+        "image": "snornp.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "endonuclease": {
+        "name": "Endonuclease",
+        "image": "endonuclease.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein",
+            "Nuclease"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "exonuclease": {
+        "name": "Exonuclease",
+        "image": "exonuclease.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein",
+            "Nuclease"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "trnaendonuclease": {
+        "name": "tRNA Splicing Endonuclease",
+        "image": "trnaendonuclease.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein",
+            "Nuclease"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "trnacca": {
+        "name": "tRNA Nucleotidyltransferase",
+        "image": "trnacca.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "modificationenzymes": {
+        "name": "Modification Enzymes",
+        "image": "modificationenzymes.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Proteins"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "drosha": {
+        "name": "Drosha",
+        "image": "drosha.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "dicer": {
+        "name": "Dicer",
+        "image": "dicer.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "arg": {
+        "name": "Argonaute",
+        "image": "arg.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "zuc": {
+        "name": "Zucchini piRNA shortening",
+        "image": "zuc.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "spliceosome": {
+        "name": "Spliceosome",
+        "image": "spliceosome.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "snocomplex": {
+        "name": "snoRNA + snoRNP Complex",
+        "image": "snocomplex.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein Complex"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "premrna5": {
+        "name": "pre-mRNA",
+        "image": "premrna5.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "5 capped",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "premrnasplice": {
+        "name": "pre-mRNA",
+        "image": "premrnasplice.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "5 capped",
+            "Spliced",
+            "missing Poly-A tail",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
+    "mRNA": {
+        "name": "mRNA",
+        "image": "mrna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "pre-RNA"
+        ],
+        "goal": true,
+        "isDefault": true
+    }
 }
