@@ -1,0 +1,75 @@
+.item-lookbook-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.item-lookbook {
+  width: 70%;
+  height: 100%;
+  overflow-y: auto;
+  border-left: 2px solid #e0e0e0;
+  box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.item-lookbook h2 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.letter-section {
+  margin-bottom: 2rem;
+}
+
+.letter-header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+  gap: 1rem;
+}
+
+.alphabet-nav {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: #f9f9f9;
+  border-left: 2px solid #e0e0e0;
+}
+
+.alphabet-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007bff;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+.alphabet-button:hover {
+  color: #0056b3;
+}
+
+.item-lookbook::-webkit-scrollbar {
+  width: 10px;
+}
+
+.item-lookbook::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.item-lookbook::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

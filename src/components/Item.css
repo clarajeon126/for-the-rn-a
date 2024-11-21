@@ -1,0 +1,54 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.item-tags {
+  display: flex;
+  flex-wrap: wrap; /* Allows tags to wrap to the next line if needed */
+  gap: 0.5rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background-color: #e9ecef;
+  color: #555;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.tag-circle {
+  width: 10px;
+  height: 10px;
+  background-color: #b700ff; /* Blue for the circle */
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}

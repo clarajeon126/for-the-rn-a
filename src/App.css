@@ -1,0 +1,46 @@
+body {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  background-color: #f9f5d7;
+  margin: 0;
+}
+.app {
+  display: flex;
+  height: 100vh;
+  background-image: url('paper.png'); /* Set the background image */
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-repeat: no-repeat; /* Prevent tiling of the image */
+  background-position: center; /* Center the image in the viewport */
+  overflow: hidden;
+}
+
+
+.main-content {
+  flex: 1; /* Takes up the remaining space */
+
+}
+
+.item-lookbook-container {
+  display: flex; /* To align lookbook and alphabet navigation */
+  width: 30%; /* Lookbook + navigation bar together take 30% */
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+.item-lookbook {
+  flex: 1; /* Lookbook itself adjusts within the container */
+  overflow-y: auto;
+  scrollbar-color: pink;
+  border-left: 2px solid #e0e0e0;
+  box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.alphabet-nav {
+  width: 10%; /* Navigation bar takes part of the width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: #f9f9f9;
+  border-left: 2px solid #e0e0e0;
+}

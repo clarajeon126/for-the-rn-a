@@ -1,0 +1,26 @@
+{
+  "dna": {
+    "name": "DNA",
+    "image": "dna.png",
+    "interactions": { "rnapol2": ["nucleus", "prerna"] },
+    "tags": ["Initial Material", "DNA"],
+    "goal": false,
+    "isDefault": true
+  },
+  "rnapol2": {
+    "name": "RNA Polymerase 2",
+    "image": "rnapol2.png",
+    "interactions": { "dna": ["nucleus", "prerna"] },
+    "tags": ["Protein","Created"],
+    "goal": false,
+    "isDefault": true
+  },
+  "prerna": {
+    "name": "Pre-RNA",
+    "image": "prerna.png",
+    "interactions": {},
+    "tags": ["RNA"],
+    "goal": false,
+    "isDefault": false
+  }
+}
