@@ -40,8 +40,8 @@
 .dropped-item {
     position: absolute; /* Position relative to the .cell */
     text-align: center;
-    width: 40px; /* Match item size */
-    height: 40px;
+    width: 60px; /* Match item size */
+    height: 60px;
     z-index: 1000;
     cursor: grab; /* Indicate draggable behavior */
 }

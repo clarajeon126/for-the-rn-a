@@ -19,7 +19,7 @@
         "name": "RNA Polymerase 2",
         "image": "rnapol2.png",
         "interactions": {
-            "dna": [
+            "rnapol3": [
                 "nucleus",
                 "prerna"
             ]
@@ -38,7 +38,7 @@
         "tags": [
             "RNA"
         ],
-        "goal": false,
+        "goal": true,
         "isDefault": false
     },
     "fold": {
@@ -206,7 +206,7 @@
     },
     "trnacca": {
         "name": "tRNA Nucleotidyltransferase",
-        "image": "trnacca.png",
+        "image": "tranacca.png",
         "interactions": {
             "dna": [
                 "nucleus",
@@ -284,6 +284,22 @@
         "goal": false,
         "isDefault": true
     },
+    "piwi": {
+        "name": "Piwi",
+        "image": "piwi.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
     "zuc": {
         "name": "Zucchini piRNA shortening",
         "image": "zuc.png",
@@ -314,7 +330,7 @@
             "Protein"
         ],
         "goal": false,
-        "isDefault": true
+        "isDefault": false
     },
     "snocomplex": {
         "name": "snoRNA + snoRNP Complex",
@@ -330,7 +346,7 @@
             "Protein Complex"
         ],
         "goal": false,
-        "isDefault": true
+        "isDefault": false
     },
     "premrna5": {
         "name": "pre-mRNA",
@@ -343,10 +359,12 @@
         },
         "tags": [
             "5 capped",
+            "Not spliced",
+            "Missing Poly-A tail",
             "pre-RNA"
         ],
         "goal": false,
-        "isDefault": true
+        "isDefault": false
     },
     "premrnasplice": {
         "name": "pre-mRNA",
@@ -360,11 +378,11 @@
         "tags": [
             "5 capped",
             "Spliced",
-            "missing Poly-A tail",
+            "Missing Poly-A tail",
             "pre-RNA"
         ],
         "goal": false,
-        "isDefault": true
+        "isDefault": false
     },
     "mRNA": {
         "name": "mRNA",
@@ -377,9 +395,445 @@
         },
         "tags": [
             "Goal",
-            "pre-RNA"
+            "RNA"
         ],
         "goal": true,
-        "isDefault": true
+        "isDefault": false
+    },
+    "snrna5": {
+        "name": "pre-snRNA",
+        "image": "snrna5.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "5' Capped",
+            "Long 3' end",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "snrna": {
+        "name": "snRNA",
+        "image": "snrna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "pretrna": {
+        "name": "pre-tRNA",
+        "image": "pretrna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Long 5' end",
+            "Long 3' end",
+            "Intron present",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "pretrnatrim": {
+        "name": "pre-tRNA",
+        "image": "pretrnatrim.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Long 5' end",
+            "Long 3' end",
+            "Intron present",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "pretrnaintron": {
+        "name": "pre-tRNA",
+        "image": "pretrnainton.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Trimmed 5' 3' end",
+            "Intron present",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "pretrnacca": {
+        "name": "pre-tRNA",
+        "image": "pretrnacca.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Trimmed 5' 3' end",
+            "Missing CCA",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "pretrnamod": {
+        "name": "pre-tRNA",
+        "image": "pretrnamod.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Trimmed 5' 3' end",
+            "Not Folded",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "trna": {
+        "name": "tRNA",
+        "image": "trna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "primirna": {
+        "name": "pri-miRNA",
+        "image": "primirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Not a Duplex",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "duplexprimirna": {
+        "name": "pri-miRNA",
+        "image": "duplexprimirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Duplex",
+            "pri-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "hairpinmirna": {
+        "name": "pre-miRNA",
+        "image": "hairpinmirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Hairpin",
+            "Duplex",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "premirna": {
+        "name": "pre-miRNA",
+        "image": "premirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Duplex",
+            "Non-complete Base Pairing",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "mirna": {
+        "name": "miRNA",
+        "image": "mirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "dssirna": {
+        "name": "pre-siRNA",
+        "image": "dssirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Endogenous",
+            "Duplex",
+            "Not Trimmed",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "dssirnatrim": {
+        "name": "pre-siRNA",
+        "image": "dssirnatrim.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Duplex",
+            "Trimmed",
+            "Complete Base Pairing",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "sirna": {
+        "name": "siRNA",
+        "image": "sirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "presnorna": {
+        "name": "pre-snoRNA",
+        "image": "presnorna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Not trimmed",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "presnornatrim": {
+        "name": "pre-snoRNA",
+        "image": "presnornatrim.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Trimmed",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "snorna": {
+        "name": "snoRNA",
+        "image": "snorna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "prepirna": {
+        "name": "pre-piRNA",
+        "image": "prepirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Not shortened",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "prepirnashort": {
+        "name": "pre-piRNA",
+        "image": "prepirnashort.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Shortened",
+            "Missing Protein",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "pirna": {
+        "name": "piRNA",
+        "image": "pirna.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "prerrna45": {
+        "name": "pre-rRNA",
+        "image": "prerrna45.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Long",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
+    "rrna18": {
+        "name": "18s rRNA",
+        "image": "rrna18.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "rrna58": {
+        "name": "5.8s rRNA",
+        "image": "rrna58.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
+    },
+    "rrna28": {
+        "name": "28s rRNA",
+        "image": "rrna28.png",
+        "interactions": {
+            "dna": [
+                "nucleus",
+                "prerna"
+            ]
+        },
+        "tags": [
+            "Goal",
+            "RNA"
+        ],
+        "goal": true,
+        "isDefault": false
     }
 }

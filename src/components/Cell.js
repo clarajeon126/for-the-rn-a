@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Cell.css';
 
-function Cell({ itemsDic, draggingItem, onNewItemCreated }) {
+function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, triggerConfetti }) {
   const [hoverLocation, setHoverLocation] = useState('n/a');
   const [droppedItems, setDroppedItems] = useState([]); // Tracks dropped items
   const [draggingExistingIndex, setDraggingExistingIndex] = useState(null); // Tracks the index of the dragged item
@@ -134,43 +134,62 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated }) {
     return items.findIndex((item, index) => {
       if (!item || index === excludeIndex) return false; // Skip invalid or excluded items
       const distance = Math.sqrt(Math.pow(item.x - x, 2) + Math.pow(item.y - y, 2));
-      return distance < 40; // Adjust threshold based on item size
+      return distance < 60; // Adjust threshold based on item size
     });
   };
 
   const handleInteraction = (item1, item2, x, y, items) => {
     console.log(`Handling interaction between ${item1.name} and ${item2.name}`);
-    const interaction = item1.interactions[item2.id];
+  
+    let interaction = item1.interactions[item2.id];
+    let initiatingItem = item1;
+  
+    if (!interaction) {
+      interaction = item2.interactions[item1.id];
+      initiatingItem = item2;
+    }
+  
     if (interaction) {
-      if(interaction[0] == hoverLocation.toLowerCase()){
-        const resultIds = interaction.slice(1); // Multiple result IDs
+      if (interaction[0] === hoverLocation.toLowerCase()) {
+        const resultIds = interaction.slice(1);
         const newItems = resultIds
-            .map((resultId) => {
-                const resultItem = Object.values(itemsDic).find((item) => item.id === resultId);
-                if (!resultItem) {
-                    console.error(`Item with ID ${resultId} not found in itemsDic.`);
-                    return null;
-                }
-                return { ...resultItem, x, y };
-            })
-            .filter(Boolean); // Remove null values
-
+          .map((resultId) => {
+            const resultItem = Object.values(itemsDic).find((item) => item.id === resultId);
+            if (!resultItem) {
+              console.error(`Item with ID ${resultId} not found in itemsDic.`);
+              return null;
+            }
+            return { ...resultItem, x, y };
+          })
+          .filter(Boolean);
+  
         if (newItems.length > 0) {
-            const updatedItems = items.filter((item) => item.id !== item1.id && item.id !== item2.id);
-            setDroppedItems([...updatedItems, ...newItems]);
-            newItems.forEach((newItem) => {
-                if (onNewItemCreated) onNewItemCreated(newItem.id);
+          const updatedItems = items.filter((item) => item.id !== item1.id && item.id !== item2.id);
+          setDroppedItems([...updatedItems, ...newItems]);
+  
+          // Find all new goal items
+          const newGoalItems = newItems.filter((item) => item.goal && !foundGoalItems.includes(item.id));
+          if (newGoalItems.length > 0) {
+            newGoalItems.forEach((item) => {
+              if (onNewItemCreated) onNewItemCreated(item.id);
             });
+  
+            // Trigger confetti once if any new goal item is created
+            if (newGoalItems.length > 0) {
+              triggerConfetti();
+            }
+          }
         }
-      }
-      else{
+      } else {
         triggerShake();
       }
     } else {
-        console.warn(`No interaction found between ${item1.id} and ${item2.id}`);
-        triggerShake(); // Trigger shake on no interaction
+      console.warn(`No interaction found between ${item1.id} and ${item2.id}`);
+      triggerShake();
     }
-};
+  };
+  
+  
 
   const triggerShake = () => {
     setShake(true);
