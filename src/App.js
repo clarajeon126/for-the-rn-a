@@ -52,11 +52,18 @@ function App() {
   };
 
   const handleNewItemCreated = (newItemId) => {
-    // Find the new item from allItems and add it to the lookbook
     const newItem = allItems.find((item) => item.id === newItemId);
-    if (newItem && !lookbookItems.some((item) => item.id === newItemId)) {
-      setLookbookItems((prev) => [...prev, newItem]);
-    }
+
+    setLookbookItems((prevLookbookItems) => {
+      if (prevLookbookItems.some((item) => item.id === newItemId)) {
+        console.warn(`Item with ID ${newItemId} is already in the lookbook. Skipping.`);
+        return prevLookbookItems; // Return the current lookbook unchanged
+      }
+      else {
+            // Find the new item in allItems or dynamically create it
+        return [...prevLookbookItems, newItem];
+      }
+    })
 
     // Check if the new item is a goal item and hasn't been found before
     if (newItem && newItem.goal && !foundGoalItems.includes(newItemId)) {
@@ -76,13 +83,14 @@ function App() {
   return (
     <div className="app">
       <div className="main-content">
-            <Cell
-        itemsDic={allItems}
-        draggingItem={draggingItem}
-        onNewItemCreated={handleNewItemCreated}
-        foundGoalItems={foundGoalItems} // Pass found goal items
-        triggerConfetti={triggerConfetti} // Pass the confetti function
-      />
+                <Cell
+            itemsDic={allItems}
+            draggingItem={draggingItem}
+            onNewItemCreated={handleNewItemCreated}
+            foundGoalItems={foundGoalItems} // Pass found goal items
+            triggerConfetti={triggerConfetti} // Pass the confetti function
+            lookbookItems={lookbookItems} // Pass lookbook items
+          />
       </div>
       <ItemLookbook items={lookbookItems} onDragStart={handleDragStart} />
     </div>

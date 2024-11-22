@@ -21,7 +21,12 @@
         "interactions": {
             "dna": [
                 "nucleus",
-                "prerna"
+                "prerna",
+                "primirna"
+            ],
+            "transposon": [
+                "nucleus",
+                "prepirna"
             ]
         },
         "tags": [
@@ -66,12 +71,7 @@
     "transposon": {
         "name": "Transposon DNA",
         "image": "transposon.png",
-        "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
-            ]
-        },
+        "interactions": {},
         "tags": [
             "Initial",
             "DNA"
@@ -84,8 +84,8 @@
         "image": "rnapol1.png",
         "interactions": {
             "dna": [
-                "nucleus",
-                "prerna"
+                "nucleolus",
+                "prerrna45"
             ]
         },
         "tags": [
@@ -101,7 +101,8 @@
         "interactions": {
             "dna": [
                 "nucleus",
-                "pretrna"
+                "pretrna",
+                "primirna"
             ]
         },
         "tags": [
@@ -371,7 +372,8 @@
         "interactions": {
             "spliceosome": [
                 "nucleus",
-                "premrnasplice"
+                "premrnasplice",
+                "presnorna"
             ]
         },
         "tags": [
@@ -412,6 +414,7 @@
         },
         "tags": [
             "Goal",
+            "Hmmm...endogenous siRNA",
             "RNA"
         ],
         "goal": true,
@@ -542,8 +545,7 @@
     "trna": {
         "name": "tRNA",
         "image": "trna.png",
-        "interactions": {
-        },
+        "interactions": {},
         "tags": [
             "Goal",
             "RNA"
@@ -555,9 +557,9 @@
         "name": "pri-miRNA",
         "image": "primirna.png",
         "interactions": {
-            "dna": [
+            "fold": [
                 "nucleus",
-                "prerna"
+                "duplexprimirna"
             ]
         },
         "tags": [
@@ -571,9 +573,9 @@
         "name": "pri-miRNA",
         "image": "duplexprimirna.png",
         "interactions": {
-            "dna": [
+            "drosha": [
                 "nucleus",
-                "prerna"
+                "hairpinmirna"
             ]
         },
         "tags": [
@@ -587,9 +589,9 @@
         "name": "pre-miRNA",
         "image": "hairpinmirna.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "dicer": [
+                "cytoplasm",
+                "premirna"
             ]
         },
         "tags": [
@@ -604,9 +606,9 @@
         "name": "pre-miRNA",
         "image": "premirna.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "arg": [
+                "cytoplasm",
+                "mirna"
             ]
         },
         "tags": [
@@ -628,7 +630,7 @@
         },
         "tags": [
             "Goal",
-            "RNA"
+            "RNA + Protein"
         ],
         "goal": true,
         "isDefault": false
@@ -637,9 +639,11 @@
         "name": "pre-siRNA",
         "image": "dssirna.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "dicer": [
+                "cytoplasm",
+                "dssirnatrim",
+                "dssirnatrim",
+                "dssirnatrim"
             ]
         },
         "tags": [
@@ -655,9 +659,9 @@
         "name": "pre-siRNA",
         "image": "dssirnatrim.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "arg": [
+                "cytoplasm",
+                "sirna"
             ]
         },
         "tags": [
@@ -672,12 +676,7 @@
     "sirna": {
         "name": "siRNA",
         "image": "sirna.png",
-        "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
-            ]
-        },
+        "interactions": {},
         "tags": [
             "Goal",
             "RNA"
@@ -689,9 +688,9 @@
         "name": "pre-snoRNA",
         "image": "presnorna.png",
         "interactions": {
-            "dna": [
+            "exonuclease": [
                 "nucleus",
-                "prerna"
+                "presnornatrim"
             ]
         },
         "tags": [
@@ -706,9 +705,9 @@
         "name": "pre-snoRNA",
         "image": "presnornatrim.png",
         "interactions": {
-            "dna": [
+            "modificationenzymes": [
                 "nucleus",
-                "prerna"
+                "snorna"
             ]
         },
         "tags": [
@@ -723,13 +722,14 @@
         "name": "snoRNA",
         "image": "snorna.png",
         "interactions": {
-            "dna": [
+            "snornp": [
                 "nucleus",
-                "prerna"
+                "snocomplex"
             ]
         },
         "tags": [
             "Goal",
+            "Think RNPComplex...",
             "RNA"
         ],
         "goal": true,
@@ -739,9 +739,9 @@
         "name": "pre-piRNA",
         "image": "prepirna.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "zuc": [
+                "cytoplasm",
+                "prepirnashort"
             ]
         },
         "tags": [
@@ -755,9 +755,9 @@
         "name": "pre-piRNA",
         "image": "prepirnashort.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "piwi": [
+                "cytoplasm",
+                "pirna"
             ]
         },
         "tags": [
@@ -788,9 +788,11 @@
         "name": "pre-rRNA",
         "image": "prerrna45.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+            "snocomplex": [
+                "nucleolus",
+                "rrna18",
+                "rrna28",
+                "rrna58"
             ]
         },
         "tags": [
@@ -801,7 +803,7 @@
         "isDefault": false
     },
     "rrna18": {
-        "name": "18s rRNA",
+        "name": "rRNA 18s",
         "image": "rrna18.png",
         "interactions": {
             "dna": [
@@ -817,7 +819,7 @@
         "isDefault": false
     },
     "rrna58": {
-        "name": "5.8s rRNA",
+        "name": "rRNA 5.8s",
         "image": "rrna58.png",
         "interactions": {
             "dna": [
@@ -833,7 +835,7 @@
         "isDefault": false
     },
     "rrna28": {
-        "name": "28s rRNA",
+        "name": "rRNA 28s",
         "image": "rrna28.png",
         "interactions": {
             "dna": [

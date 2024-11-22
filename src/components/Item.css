@@ -2,12 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
   padding: 1rem;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  min-width: 120px; /* Minimum size for consistent layout */
+  max-width: 150px; /* Maximum size to avoid overflow */
+  height: auto; /* Allow height to adjust based on content */
+  box-sizing: border-box; /* Include padding in size calculation */
+  overflow: hidden; /* Prevent content overflow */
+  word-wrap: break-word; /* Allow text to wrap */
 }
 
 .item:hover {
@@ -23,14 +30,17 @@
 }
 
 .item-name {
-  font-size: 1.2rem;
+  font-size: 1rem; /* Adjust font size for better wrapping */
   color: #333;
-  margin-bottom: 0.5rem;
+  text-align: center; /* Center-align text */
+  line-height: 1.2; /* Control line spacing */
+  white-space: normal; /* Allow multi-line text */
 }
 
 .item-tags {
   display: flex;
-  flex-wrap: wrap; /* Allows tags to wrap to the next line if needed */
+  flex-wrap: wrap; /* Wrap tags to fit within the box */
+  justify-content: center; /* Center tags within the box */
   gap: 0.5rem;
 }
 
@@ -42,7 +52,9 @@
   padding: 0.3rem 0.6rem;
   border-radius: 15px;
   font-size: 0.8rem;
-  position: relative;
+  max-width: 100%; /* Ensure tags don’t overflow */
+  word-wrap: break-word; /* Allow tags to wrap */
+  box-sizing: border-box; /* Include padding in size calculation */
 }
 
 .tag-circle {
