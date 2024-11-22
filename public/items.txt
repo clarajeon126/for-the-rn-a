@@ -19,7 +19,7 @@
         "name": "RNA Polymerase 2",
         "image": "rnapol2.png",
         "interactions": {
-            "rnapol3": [
+            "dna": [
                 "nucleus",
                 "prerna"
             ]
@@ -34,11 +34,17 @@
     "prerna": {
         "name": "Pre-RNA",
         "image": "prerna.png",
-        "interactions": {},
+        "interactions": {
+            "cappingenzymes": [
+                "nucleus",
+                "premrna5",
+                "snrna5"
+            ]
+        },
         "tags": [
             "RNA"
         ],
-        "goal": true,
+        "goal": false,
         "isDefault": false
     },
     "fold": {
@@ -95,7 +101,7 @@
         "interactions": {
             "dna": [
                 "nucleus",
-                "prerna"
+                "pretrna"
             ]
         },
         "tags": [
@@ -316,6 +322,17 @@
         "goal": false,
         "isDefault": true
     },
+    "snrnp": {
+        "name": "snRNP",
+        "image": "snrnp.png",
+        "interactions": {},
+        "tags": [
+            "Initial",
+            "Protein"
+        ],
+        "goal": false,
+        "isDefault": true
+    },
     "spliceosome": {
         "name": "Spliceosome",
         "image": "spliceosome.png",
@@ -352,9 +369,9 @@
         "name": "pre-mRNA",
         "image": "premrna5.png",
         "interactions": {
-            "dna": [
+            "spliceosome": [
                 "nucleus",
-                "prerna"
+                "premrnasplice"
             ]
         },
         "tags": [
@@ -370,9 +387,9 @@
         "name": "pre-mRNA",
         "image": "premrnasplice.png",
         "interactions": {
-            "dna": [
+            "polyapol": [
                 "nucleus",
-                "prerna"
+                "mrna"
             ]
         },
         "tags": [
@@ -384,13 +401,13 @@
         "goal": false,
         "isDefault": false
     },
-    "mRNA": {
+    "mrna": {
         "name": "mRNA",
         "image": "mrna.png",
         "interactions": {
-            "dna": [
+            "fold": [
                 "nucleus",
-                "prerna"
+                "dssirna"
             ]
         },
         "tags": [
@@ -404,9 +421,9 @@
         "name": "pre-snRNA",
         "image": "snrna5.png",
         "interactions": {
-            "dna": [
+            "exonuclease": [
                 "nucleus",
-                "prerna"
+                "snrna"
             ]
         },
         "tags": [
@@ -421,9 +438,9 @@
         "name": "snRNA",
         "image": "snrna.png",
         "interactions": {
-            "dna": [
+            "snrnp": [
                 "nucleus",
-                "prerna"
+                "spliceosome"
             ]
         },
         "tags": [
@@ -437,9 +454,9 @@
         "name": "pre-tRNA",
         "image": "pretrna.png",
         "interactions": {
-            "dna": [
+            "exonuclease": [
                 "nucleus",
-                "prerna"
+                "pretrnatrim"
             ]
         },
         "tags": [
@@ -455,15 +472,15 @@
         "name": "pre-tRNA",
         "image": "pretrnatrim.png",
         "interactions": {
-            "dna": [
+            "trnaendonuclease": [
                 "nucleus",
-                "prerna"
+                "pretrnaintron"
             ]
         },
         "tags": [
-            "Long 5' end",
-            "Long 3' end",
+            "Trimmed 5' 3' end",
             "Intron present",
+            "Missing CCA",
             "Not Modified",
             "pre-RNA"
         ],
@@ -472,29 +489,11 @@
     },
     "pretrnaintron": {
         "name": "pre-tRNA",
-        "image": "pretrnainton.png",
+        "image": "pretrnaintron.png",
         "interactions": {
-            "dna": [
+            "trnacca": [
                 "nucleus",
-                "prerna"
-            ]
-        },
-        "tags": [
-            "Trimmed 5' 3' end",
-            "Intron present",
-            "Not Modified",
-            "pre-RNA"
-        ],
-        "goal": false,
-        "isDefault": false
-    },
-    "pretrnacca": {
-        "name": "pre-tRNA",
-        "image": "pretrnacca.png",
-        "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
+                "pretrnacca"
             ]
         },
         "tags": [
@@ -506,13 +505,30 @@
         "goal": false,
         "isDefault": false
     },
+    "pretrnacca": {
+        "name": "pre-tRNA",
+        "image": "pretrnacca.png",
+        "interactions": {
+            "modificationenzymes": [
+                "nucleus",
+                "pretrnamod"
+            ]
+        },
+        "tags": [
+            "Trimmed 5' 3' end",
+            "Not Modified",
+            "pre-RNA"
+        ],
+        "goal": false,
+        "isDefault": false
+    },
     "pretrnamod": {
         "name": "pre-tRNA",
         "image": "pretrnamod.png",
         "interactions": {
-            "dna": [
+            "fold": [
                 "nucleus",
-                "prerna"
+                "trna"
             ]
         },
         "tags": [
@@ -527,10 +543,6 @@
         "name": "tRNA",
         "image": "trna.png",
         "interactions": {
-            "dna": [
-                "nucleus",
-                "prerna"
-            ]
         },
         "tags": [
             "Goal",

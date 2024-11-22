@@ -151,7 +151,10 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
   
     if (interaction) {
       if (interaction[0] === hoverLocation.toLowerCase()) {
+        // Extract all result IDs after the location
         const resultIds = interaction.slice(1);
+  
+        // Create new items for all result IDs
         const newItems = resultIds
           .map((resultId) => {
             const resultItem = Object.values(itemsDic).find((item) => item.id === resultId);
@@ -159,15 +162,16 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
               console.error(`Item with ID ${resultId} not found in itemsDic.`);
               return null;
             }
-            return { ...resultItem, x, y };
+            return { ...resultItem, x, y }; // Use provided coordinates
           })
           .filter(Boolean);
   
         if (newItems.length > 0) {
+          // Remove the original interacting items and add the new ones
           const updatedItems = items.filter((item) => item.id !== item1.id && item.id !== item2.id);
           setDroppedItems([...updatedItems, ...newItems]);
   
-          // Find all new goal items
+          // Identify new goal items and handle them
           const newGoalItems = newItems.filter((item) => item.goal && !foundGoalItems.includes(item.id));
           if (newGoalItems.length > 0) {
             newGoalItems.forEach((item) => {
@@ -175,9 +179,7 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
             });
   
             // Trigger confetti once if any new goal item is created
-            if (newGoalItems.length > 0) {
-              triggerConfetti();
-            }
+            triggerConfetti();
           }
         }
       } else {
@@ -188,6 +190,7 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
       triggerShake();
     }
   };
+  
   
   
 
