@@ -1,0 +1,65 @@
+.progress-checker-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70vw;
+    height: calc(70vw * 2 / 3); /* Default: Maintain 3:2 aspect ratio */
+    max-height: 70vh; /* Restrict maximum height */
+    max-width: calc(70vh * 3 / 2); /* Adjust maximum width based on height */
+    transform: translate(-50%, -50%);
+    background: url('progresschecker.png') no-repeat center center;
+    background-size: cover;
+    z-index: 2000; /* Higher than dropped items */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  
+  
+  .progress-header {
+    height: 9%;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    padding-left: 30px;
+  }
+  
+  .progress-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 100%; /* Adjust relative to overlay width */
+    height: 91%; /* Adjust relative to overlay height */
+  }
+  
+  .goal-cell {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .star-image {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    font-size: 40px;
+    font-weight: 300;
+    color: rgb(0, 0, 0);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it is above other elements */
+  }
+  
+  .close-button:hover {
+    color: red; /* Optional hover effect */
+  }
+  
