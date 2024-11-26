@@ -11,7 +11,7 @@ function ProgressChecker({ foundGoalItems, goalOrder, onClose }) {
   return (
     <div className="progress-checker-overlay">
       <button className="close-button" onClick={onClose}>
-        ✖ {/* Close icon */}
+        &times;
       </button>
       <div className="progress-header">
         {foundGoalItems.length}/8

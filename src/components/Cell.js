@@ -1,31 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import './Cell.css';
 
-function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, triggerConfetti, lookbookItems }) {
+function Cell({
+  itemsDic,
+  draggingItem,
+  onNewItemCreated,
+  foundGoalItems,
+  triggerConfetti,
+  lookbookItems,
+  clearCell,
+  setClearCell,
+  droppedItems, // State managed by App.js
+  setDroppedItems, // Callback from App.js to directly update droppedItems
+}) {
   const [hoverLocation, setHoverLocation] = useState('n/a');
-  const [droppedItems, setDroppedItems] = useState([]); // Tracks dropped items
   const [draggingExistingIndex, setDraggingExistingIndex] = useState(null); // Tracks the index of the dragged item
   const [currentlyDragging, setCurrentlyDragging] = useState(null); // Tracks the currently dragged item
   const [shake, setShake] = useState(false); // Tracks if the cell should vibrate
 
+  useEffect(() => {
+    if (clearCell) {
+      setDroppedItems([]); // Clear dropped items using App.js state
+      setClearCell(false);
+    }
+  }, [clearCell, setClearCell, setDroppedItems]);
+
   const calculateHoverLocation = (x, y) => {
     const cell = document.querySelector('.cell');
     if (!cell) return 'n/a';
-  
+
     const { left, top, width, height } = cell.getBoundingClientRect();
-  
+
     // Calculate the center of the cell
     const centerX = left + width / 2;
     const centerY = top + height / 2;
-  
+
     // Calculate cursor distance from the center
     const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-  
+
     // Define radii for each region
     const cytoplasmRadius = 450; // Cell radius
     const nucleusRadius = 300; // Adjust as needed
     const nucleolusRadius = 200; // Adjust as needed
-  
+
     // Determine hover location based on distance
     if (distance <= nucleolusRadius) {
       return 'Nucleolus';
@@ -85,27 +102,25 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
     const location = calculateHoverLocation(e.clientX, e.clientY);
     setHoverLocation(location);
   };
-  
-  
 
   const handleDrop = (e) => {
     e.preventDefault();
     const { left, top } = e.currentTarget.getBoundingClientRect();
-  
-    const dropX = e.clientX - left;
-    const dropY = e.clientY - top;
-  
+
+    let dropX = e.clientX - left - 30;
+    let dropY = e.clientY - top - 30;
+
     if (draggingExistingIndex !== null) {
       const movedItem = droppedItems[draggingExistingIndex];
       if (!movedItem) {
         console.error('Dropped item is undefined.');
         return;
       }
-  
+
       const updatedItems = droppedItems.map((item, index) =>
         index === draggingExistingIndex ? { ...item, x: dropX, y: dropY } : item
       );
-  
+
       const overlappingIndex = findOverlappingItem(
         dropX,
         dropY,
@@ -113,6 +128,8 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
         draggingExistingIndex
       );
       if (overlappingIndex >= 0) {
+        dropX = dropX + 30;
+        dropY = dropY + 30;
         handleInteraction(
           movedItem,
           updatedItems[overlappingIndex],
@@ -125,14 +142,16 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
       } else {
         setDroppedItems(updatedItems);
       }
-  
+
       setDraggingExistingIndex(null);
       setCurrentlyDragging(null);
     } else if (draggingItem) {
       const newItem = { ...draggingItem, x: dropX, y: dropY };
-  
+
       const overlappingIndex = findOverlappingItem(dropX, dropY, droppedItems);
       if (overlappingIndex >= 0) {
+        dropX = dropX + 30;
+        dropY = dropY + 30;
         handleInteraction(
           newItem,
           droppedItems[overlappingIndex],
@@ -149,44 +168,42 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
       console.warn('No item to drop.');
     }
   };
-  
-  
 
   const findOverlappingItem = (x, y, items, excludeIndex = null) => {
     let closestItemIndex = -1;
     let minDistance = Infinity;
-  
+
     items.forEach((item, index) => {
       if (!item || index === excludeIndex) return; // Skip invalid or excluded items
       const distance = Math.sqrt(Math.pow(item.x - x, 2) + Math.pow(item.y - y, 2));
-  
+
       // Find the closest item within a defined threshold
       if (distance < 60 && distance < minDistance) { // Adjust threshold based on item size
         closestItemIndex = index;
         minDistance = distance;
       }
     });
-  
+
     return closestItemIndex; // Return the index of the closest overlapping item
   };
-  
-  
 
   const handleInteraction = (item1, item2, x, y, items, index1, index2) => {
     console.log(`Handling interaction between ${item1.name} and ${item2.name}`);
-  
+
     let interaction = item1.interactions[item2.id];
     let initiatingItem = item1;
-  
+
     if (!interaction) {
       interaction = item2.interactions[item1.id];
       initiatingItem = item2;
     }
-  
+
     if (interaction) {
       if (interaction[0] === hoverLocation.toLowerCase()) {
         const resultIds = interaction.slice(1);
-  
+
+        x -= 30;
+        y -= 30;
         // Create new items for all result IDs
         const newItems = resultIds
           .map((resultId) => {
@@ -206,22 +223,22 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
             return { ...resultItem, x, y }; // Use provided coordinates
           })
           .filter(Boolean);
-  
+
         if (newItems.length > 0) {
           // Remove interacting items using their indexes
           const updatedItems = items.filter(
             (_, idx) => idx !== index1 && idx !== index2
           );
-  
+
           setDroppedItems([...updatedItems, ...newItems]);
-  
+
           // Trigger onNewItemCreated for all new items
           newItems.forEach((newItem) => {
             if (!lookbookItems.some((item) => item.id === newItem.id)) {
               onNewItemCreated(newItem.id);
             }
           });
-  
+
           // Check for new goal items
           const newGoalItems = newItems.filter(
             (item) => item.goal && !foundGoalItems.includes(item.id)
@@ -241,11 +258,6 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
       triggerShake();
     }
   };
-  
-  
-  
-  
-  
 
   const triggerShake = () => {
     setShake(true);
@@ -275,8 +287,8 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
           </div>
         </div>
 
-        {/* Render dropped items */}
-        {droppedItems.map((item, index) => (
+{/* Render dropped items */}
+{droppedItems.map((item, index) => (
           <div
             key={index}
             className="dropped-item"
@@ -310,7 +322,7 @@ function Cell({ itemsDic, draggingItem, onNewItemCreated, foundGoalItems, trigge
           </div>
         ))}
       </div>
-      </div>
+    </div>
   );
 }
 
