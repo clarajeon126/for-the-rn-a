@@ -500,6 +500,7 @@
         },
         "tags": [
             "Not a Duplex",
+            "Needs to be Folded",
             "pre-RNA"
         ],
         "goal": false,

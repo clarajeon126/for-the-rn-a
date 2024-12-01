@@ -5,7 +5,7 @@ import ItemClass from './components/ItemClass';
 import ProgressChecker from './components/ProgressChecker';
 import Tutorial from './components/Tutorial';
 import Introduction from './components/Introduction';
-import End from './components/End'; // New component
+import End from './components/End';
 import './App.css';
 import confetti from 'canvas-confetti';
 
@@ -25,9 +25,10 @@ function App() {
   const [showIntroduction, setShowIntroduction] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [nowLoad, setNowLoad] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // New state to check for mobile devices
 
   const RNA_GOAL_ITEMS = ['mrna', 'trna', 'sirna', 'snrna', 'rrna', 'mirna', 'pirna', 'snorna'];
-  const [showEnd, setShowEnd] = useState(false); // New state for the End component
+  const [showEnd, setShowEnd] = useState(false);
 
   const saveGameState = () => {
     const stateToSave = {
@@ -55,73 +56,83 @@ function App() {
   };
 
   useEffect(() => {
-    const initializeGame = async (itemsArray) => {
-      const defaultItems = itemsArray.filter((item) => item.isDefault);
-
-      const images = [
-        'logo.png',
-        'intro1.png',
-        'intro2.png',
-        'intro3.png',
-        'intro4.png',
-        'tutorial.png',
-        'end.png', // Preload end screen image
-        'progress_icon.png',
-        'info_icon.png',
-        'trash_icon.png',
-        'reset.png',
-        'cytoplasm.png',
-        'nucleus.png',
-        'nucleolus.png',
-        ...itemsArray.map((item) => item.image),
-      ];
-
-      await preloadImages(images);
-
-      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (savedState) {
-        const { lookbookItems: savedLookbook, foundGoalItems: savedGoals, droppedItems: savedDropped } = savedState;
-
-        setLookbookItems(savedLookbook && savedLookbook.length > 0 ? savedLookbook : defaultItems);
-        setFoundGoalItems(savedGoals || []);
-        setDroppedItems(savedDropped || []);
-        setNowLoad(true);
-        setShowIntroduction(false);
-      } else {
-        setLookbookItems(defaultItems);
-        setShowIntroduction(true);
-        setNowLoad(true);
+    const checkMobileDevice = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      if (/android|ipad|playbook|silk|mobile|iphone|ipod|blackberry/i.test(userAgent.toLowerCase())) {
+        setIsMobile(true);
       }
-
-      setIsLoading(false);
     };
 
-    fetch('/items.txt')
-      .then((response) => response.text())
-      .then((text) => {
-        const parsedItems = JSON.parse(text);
-        const itemsArray = Object.entries(parsedItems).map(
-          ([id, item]) =>
-            new ItemClass(
-              id,
-              item.name,
-              item.image,
-              item.interactions,
-              item.tags,
-              item.goal,
-              item.isDefault
-            )
-        );
-        setAllItems(itemsArray);
-        initializeGame(itemsArray);
-      })
-      .catch((error) => console.error('Error loading items:', error));
-  }, []);
+    checkMobileDevice();
+
+    if (!isMobile) {
+      const initializeGame = async (itemsArray) => {
+        const defaultItems = itemsArray.filter((item) => item.isDefault);
+
+        const images = [
+          'logo.png',
+          'intro1.png',
+          'intro2.png',
+          'intro3.png',
+          'intro4.png',
+          'tutorial.png',
+          'end.png',
+          'progress_icon.png',
+          'info_icon.png',
+          'trash_icon.png',
+          'reset.png',
+          'cytoplasm.png',
+          'nucleus.png',
+          'nucleolus.png',
+          ...itemsArray.map((item) => item.image),
+        ];
+
+        await preloadImages(images);
+
+        const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (savedState) {
+          const { lookbookItems: savedLookbook, foundGoalItems: savedGoals, droppedItems: savedDropped } = savedState;
+
+          setLookbookItems(savedLookbook && savedLookbook.length > 0 ? savedLookbook : defaultItems);
+          setFoundGoalItems(savedGoals || []);
+          setDroppedItems(savedDropped || []);
+          setNowLoad(true);
+          setShowIntroduction(false);
+        } else {
+          setLookbookItems(defaultItems);
+          setShowIntroduction(true);
+          setNowLoad(true);
+        }
+
+        setIsLoading(false);
+      };
+
+      fetch('/items.txt')
+        .then((response) => response.text())
+        .then((text) => {
+          const parsedItems = JSON.parse(text);
+          const itemsArray = Object.entries(parsedItems).map(
+            ([id, item]) =>
+              new ItemClass(
+                id,
+                item.name,
+                item.image,
+                item.interactions,
+                item.tags,
+                item.goal,
+                item.isDefault
+              )
+          );
+          setAllItems(itemsArray);
+          initializeGame(itemsArray);
+        })
+        .catch((error) => console.error('Error loading items:', error));
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     saveGameState();
 
-    // Check if all goal RNA items are found
     if (RNA_GOAL_ITEMS.every((item) => foundGoalItems.includes(item))) {
       setShowEnd(true);
     }
@@ -166,6 +177,15 @@ function App() {
     setDroppedItems([]);
     setClearCell(true);
   };
+
+  if (isMobile) {
+    return (
+      <div className="mobile-not-available">
+          <img src="logo.png" alt="Logo" className="loading-logo" />
+        <p>Sorry, this app is not available on mobile devices yet.</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -246,10 +266,14 @@ function App() {
         <div className="overlay">
           <div className="trash-overlay">
             <p>Do you want to reset your progress on the game? All your progress will be lost!!</p>
-            <button           onClick={() => {
-            localStorage.removeItem(STORAGE_KEY);
-            window.location.reload();
-          }}>Yes</button>
+            <button
+              onClick={() => {
+                localStorage.removeItem(STORAGE_KEY);
+                window.location.reload();
+              }}
+            >
+              Yes
+            </button>
             <button onClick={() => setShowResetOverlay(false)}>No</button>
           </div>
         </div>
